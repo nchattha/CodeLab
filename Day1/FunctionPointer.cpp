@@ -20,7 +20,7 @@ bool isNumberEven( type val)
 }
 // function for count the number as per the criteria
 template <class iterator, class type>
-int count_function(iterator start, iterator end, bool (*cirteria)(type))
+int count_function(iterator start, iterator end, type cirteria)
 {
     int count = 0; 
     for(;start != end; ++start)
