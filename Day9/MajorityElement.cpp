@@ -9,9 +9,9 @@ int majorityElement(vector<int>&num)
     else if(num.size() == 1) return num.at(0);
     else
     {
-        //BruteForce
         int majorityNo = num.size()/2;    
         int resultCount = 0;
+        //BruteForce //Time O(n) = n*n, space O(n) = O(1)
         // for( int i = 0 ; i < num.size(); i++)
         // {
         //     int count = 0;
@@ -33,7 +33,7 @@ int majorityElement(vector<int>&num)
         //     }
         // }
         //hashmap store the coun into the map as key value pair
-        //sort the vector
+        //sort the vector //Time O(n) = nLogn, space O(n) = O(1)
         // sort(num.begin(),num.end());
         
         // for ( int i=0 ; i <num.size() ;)
@@ -55,7 +55,7 @@ int majorityElement(vector<int>&num)
         //     }
         //     i += count;
         // }
-        //Moore Voting Algorithm
+        //Moore Voting Algorithm //Time O(n) = nLogn, space O(n) = O(1)
         result = num.at(0);
         resultCount = 1; 
         for ( int i=1 ; i <num.size() ;i++)
