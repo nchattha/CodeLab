@@ -7,23 +7,22 @@ using namespace std;
 string removeAdjacent(string data, int kCount)
 {
     string result;
-    stack<pair<char,int>>filterData;
+    stack<pair<char,int>> filterData;
     for( char ch:data)
     {
         if(filterData.empty() || filterData.top().first != ch)
         {
             filterData.push(pair<char,int>(ch,1));//Bydefault count is set to 1
-            cout<<"\n"<<ch<<":"<<1;
         }
         else
         {//top is equal to current element
             filterData.top().second++;
-            cout<<"\n"<<filterData.top().first<<":"<<filterData.top().second;
             if(filterData.top().second == kCount)
                 filterData.pop();
         }
     }
 
+    //Make output string from the stack
     while(!filterData.empty())
     {
         for(int i = 0; i < filterData.top().second; i++)
