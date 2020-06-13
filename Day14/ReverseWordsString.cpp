@@ -48,7 +48,7 @@ string reverseStr(string data)
         if(data[i] == ' ')
         {
             while(data[i] == ' ')i++;
-            if( i < data.length() && 
+            if( i < data.length() &&  //Cover the trailing spaces at start, middle and end
                 !res.empty() && 
                 data[i] != ' ')res += ' ';
         }
