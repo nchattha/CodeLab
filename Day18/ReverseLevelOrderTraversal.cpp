@@ -83,6 +83,9 @@ vector<vector<int>> levelorderTraversalReverse(TreeNode *current)
             }
         }    
     }
+    
+        reverse(result.begin(),result.end());
+        
     return result;
 }
 
