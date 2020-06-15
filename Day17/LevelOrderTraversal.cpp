@@ -25,6 +25,7 @@ void print2DUtil(TreeNode *root, int space)
     space += COUNT;
 
     // Process right child first
+    if( root->right !=  NULL)
     print2DUtil(root->right, space);
 
     // Print current node after space
@@ -35,6 +36,7 @@ void print2DUtil(TreeNode *root, int space)
     cout << root->val;
 
     // Process left child
+    if( root->left !=  NULL)
     print2DUtil(root->left, space);
 }
 
@@ -84,7 +86,7 @@ vector<int> levelorderTraversal(TreeNode *current)
 
             if (current->left != NULL)
                 nodeQueue.push(current->left);
-            if (current->left != NULL)
+            if (current->right != NULL)
                 nodeQueue.push(current->right);
 
             result.push_back(current->val);
@@ -133,6 +135,7 @@ vector<vector<int>> levelorderTraversalS(TreeNode *current)
         {
             current = nodeQueue.front();
             nodeQueue.pop();
+            
             if (current == NULL)
             {
                 result.push_back(temp);
@@ -145,7 +148,7 @@ vector<vector<int>> levelorderTraversalS(TreeNode *current)
                 temp.push_back(current->val);
                 if (current->left != NULL)
                     nodeQueue.push(current->left);
-                if (current->left != NULL)
+                if (current->right != NULL)
                     nodeQueue.push(current->right);
             }
         }
@@ -157,24 +160,24 @@ int main(void)
 {
     TreeNode *bTree = new TreeNode(3);
     addNode(1, bTree);
-    addNode(2, bTree);
-    addNode(3, bTree);
-    addNode(4, bTree);
-    addNode(5, bTree);
-    addNode(6, bTree);
-    print2DUtil(bTree, 0);
-    vector<int> res = levelorderTraversal(bTree);
-    cout << endl;
-    for (auto val : res)
-    {
-        cout << val << " , ";
-    }
-    cout << "END" << GetHeight(bTree)<<endl;
+    // addNode(2, bTree);
+    // addNode(3, bTree);
+    // addNode(4, bTree);
+    // addNode(5, bTree);
+    // addNode(6, bTree);
+   // print2DUtil(bTree, 0);
+    // vector<int> res = levelorderTraversal(bTree);
+    // cout << endl;
+    // for (auto val : res)
+    // {
+    //     cout << val << " , ";
+    // }
+     cout << "END" << GetHeight(bTree)<<endl;
     vector<vector<int>>res1 = levelorderTraversalS(bTree);
     cout << endl;
     for (auto val : res1)
     {
-         for (auto va : val)
+        for (auto va : val)
             cout << va << " , ";
         cout<<endl;    
     }
