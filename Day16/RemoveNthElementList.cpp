@@ -49,27 +49,27 @@ ListNode *removeNthFromEnd(ListNode *head, int n)
     return head;
 }
 
-void printList(ListNode *head)
-{
-    while (head != NULL)
+    void printList(ListNode *head)
     {
-        cout << head->val << "->";
-        head = head->next;
+        while (head != NULL)
+        {
+            cout << head->val << "->";
+            head = head->next;
+        }
+        cout << "NULL" << endl;
     }
-    cout << "NULL" << endl;
-}
 
-int main()
-{
-    ListNode *list1 = new ListNode(1);
-    list1->next = new ListNode(2);
-    list1->next->next = new ListNode(3);
-    list1->next->next->next = new ListNode(4);
-    list1->next->next->next->next = new ListNode(5);
-    printList(list1);
-    ListNode *head = removeNthFromEnd(list1, 0);
-    cout << "Updated List " << endl;
-    printList(head);
+    int main()
+    {
+        ListNode *list1 = new ListNode(1);
+        list1->next = new ListNode(2);
+        list1->next->next = new ListNode(3);
+        list1->next->next->next = new ListNode(4);
+        list1->next->next->next->next = new ListNode(5);
+        printList(list1);
+        ListNode *head = removeNthFromEnd(list1, 0);
+        cout << "Updated List " << endl;
+        printList(head);
 
-    return 0;
-}
+        return 0;
+    }
