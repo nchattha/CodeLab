@@ -34,15 +34,15 @@ void addNode(int val, TreeNode *node)
             nodeQueue.push(frontNode->left);
         }
 
-        if (frontNode->right == NULL)
-        {
-            frontNode->right = new TreeNode(val);
-            break;
-        }
-        else
-        {
-            nodeQueue.push(frontNode->right);
-        }
+        // if (frontNode->right == NULL)
+        // {
+        //     frontNode->right = new TreeNode(val);
+        //     break;
+        // }
+        // else
+        // {
+        //     nodeQueue.push(frontNode->right);
+        // }
     }
 }
 
@@ -85,6 +85,42 @@ vector<int> preorderTraversal(TreeNode *root)
 }
 
 
+vector<int> preorderTraversalN(TreeNode* root) {
+         vector<int>result;
+
+        stack<TreeNode *> nodeStack;
+        if( root != NULL)
+        {
+            nodeStack.push(root);
+            while( !nodeStack.empty())
+            {
+                root = nodeStack.top();
+                if( root->left != NULL)
+                {    
+                    nodeStack.push(root->left);
+                    root->left = NULL; 
+                }
+                else
+                {   
+
+                    if(root->right != NULL )
+                    {
+                        nodeStack.push(root->right);
+                        root->right = NULL;
+                    }
+                    else
+                    {
+                        result.insert(result.begin(),root->val);
+                        nodeStack.pop();
+                    }
+                    
+                }
+            }
+               
+         }
+        
+        return result;
+    }
 //PRINT TREE
 #define COUNT 5
 void print2DUtil(TreeNode *root, int space)
@@ -114,12 +150,12 @@ int main(void)
     TreeNode *bTree = new TreeNode(3);
     addNode(1, bTree);
     addNode(2, bTree);
-    addNode(3, bTree);
-    addNode(4, bTree);
-    addNode(5, bTree);
-    addNode(6, bTree);
+    // addNode(3, bTree);
+    // addNode(4, bTree);
+    // addNode(5, bTree);
+    // addNode(6, bTree);
     print2DUtil(bTree, 0);
-    vector<int> res = preorderTraversal(bTree);
+    vector<int> res = preorderTraversalN(bTree);
     cout<<endl;
     for (auto val : res)
     {
