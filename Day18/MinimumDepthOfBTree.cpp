@@ -46,10 +46,9 @@ void addNode(int val, TreeNode *node)
     }
 }
 
-int MinimumDepth(TreeNode *current)
-{
-    queue<pair<TreeNode *, int>> nodeQueue;
-    stack<int> tempData;
+int minDepth(TreeNode* current) {
+        queue<pair<TreeNode *, int>> nodeQueue;
+    
     int count = 0;
     bool reverse = false;
     if (current != NULL)
@@ -62,17 +61,20 @@ int MinimumDepth(TreeNode *current)
         {
             pair<TreeNode *, int> current = nodeQueue.front();
             nodeQueue.pop();
-
+            count = current.second;
+            
             if (current.first->left == NULL && current.first->right == NULL)
-                return current.second;
+                return count;
+            
             if (current.first->left != NULL)
-                nodeQueue.push(pair<TreeNode *, int>(current.first->left, ++count));
+                nodeQueue.push(pair<TreeNode *, int>(current.first->left, count+1));
+            
             if (current.first->right != NULL)
-                nodeQueue.push(pair<TreeNode *, int>(current.first->right, ++count));
+                nodeQueue.push(pair<TreeNode *, int>(current.first->right, count+1));
         }
     }
     return count;
-}
+    }
 
 int main(void)
 {
@@ -85,7 +87,7 @@ int main(void)
     addNode(6, bTree);
 
     
-    cout <<"Minimum Depth: "<< MinimumDepth(bTree)<<endl;
+    cout <<"Minimum Depth: "<< minDepth(bTree)<<endl;
     
     return 0;
 }
