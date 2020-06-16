@@ -116,8 +116,6 @@ private:
         if (level == 1)
         {
             cout << root->val << " ";
-
-            // return true if at-least one node is present at given level
             return true;
         }
 
@@ -131,18 +129,18 @@ private:
     {
         if (node == NULL)  
         return 0;  
-    else
-    {  
-        /* compute the depth of each subtree */
-        int lDepth = calculateHeight(node->left);  
-        int rDepth = calculateHeight(node->right);  
-      
-        /* use the larger one */
-        if (lDepth > rDepth)  
-            return(lDepth + 1);  
-        else return(rDepth + 1);  
-    }  
+        return 1+max(calculateHeight(node->left),calculateHeight(node->right));
     }
+
+    int diameterOfBinaryTree(TreeNode* root)
+    {
+        if( root == NULL ) return 0;
+        int option1 = calculateHeight(root->left)+calculateHeight(root->right);
+        int option2 = diameterOfBinaryTree(root->left);
+        int option3 = diameterOfBinaryTree(root->right);
+        return max(option1,max(option2,option3));
+    }
+
 };
 
 int main(void)
