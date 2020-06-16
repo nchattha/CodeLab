@@ -6,6 +6,8 @@
  * Definition for a binary tree node.
  */
 #include <iostream>
+#include <queue>
+
 using namespace std;
 
 struct TreeNode
@@ -18,139 +20,59 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-class Tree
+void addNode(int val, TreeNode *node)
 {
-    TreeNode *head;
-
-public:
-    Tree(void) : head(NULL) {}
-    void addItem(int val)
+    queue<TreeNode *> nodeQueue;
+    nodeQueue.push(node);
+    while (!nodeQueue.empty())
     {
-        if (head == NULL)
-            head = new TreeNode(val);
-        else
-            addNode(val, head);
-    }
-    void printTree()
-    {
-        printTree(head);
-    }
+        TreeNode *frontNode = nodeQueue.front();
+        nodeQueue.pop();
 
-    // Function to print level order traversal of given binary tree
-    void levelOrderTraversal()
-    {
-        // start from level 1 -- till height of the tree
-        int level = 1;
-
-        // run till printLevel() returns false
-        while (printLevel(head, level))
+        if (frontNode->left == NULL)
         {
-            level++;
-            cout << endl;
-        }
-    }
-    
-    int diameterOfBinaryTree()
-    {
-        int leftH = 0, rightH = 0;
-        if( head != NULL)
-        {
-            if(head->left != NULL)
-                leftH = calculateHeight(head->left);
-            if(head->right != NULL)
-                rightH = calculateHeight(head->right); 
-
-            cout<<leftH<<" :: "<<rightH<<endl;
-        }
-        return leftH+rightH;
-    }
-
-
-private:
-    void addNode(int val, TreeNode *node)
-    {
-
-        if (node->left == NULL)
-        {
-            cout << "L" << endl;
-            node->left = new TreeNode(val);
-            return;
-        }
-        else if (node->right == NULL)
-        {
-            cout << "R" << endl;
-            node->right = new TreeNode(val);
-            return;
+            frontNode->left = new TreeNode(val);
+            break;
         }
         else
         {
-            if (node->left != NULL && node->right == NULL)
-            {
-                cout << "ELSE ";
-                addNode(val, node->right);
-            }
-            else
-            {
-                cout << "ELSE ";
-                addNode(val, node->left);
-            }
+            nodeQueue.push(frontNode->left);
         }
-    }
-    void printTree(TreeNode *node)
-    {
-        if (node == NULL)
+
+        if (frontNode->right == NULL)
         {
-            return;
+            frontNode->right = new TreeNode(val);
+            break;
         }
-        cout << node->val << endl;
-        printTree(node->left);
-        printTree(node->right);
-    }
-
-    // Function to print all nodes of a given level from left to right
-    bool printLevel(TreeNode *root, int level)
-    {
-        if (root == nullptr)
-            return false;
-
-        if (level == 1)
+        else
         {
-            cout << root->val << " ";
-            return true;
+            nodeQueue.push(frontNode->right);
         }
-
-        bool left = printLevel(root->left, level - 1);
-        bool right = printLevel(root->right, level - 1);
-
-        return left || right;
     }
+}
+int calculateHeight(TreeNode *node)
+{
+    if (node == NULL)
+        return 0;
+    return 1 + max(calculateHeight(node->left), calculateHeight(node->right));
+}
 
-    int calculateHeight(TreeNode *node)
-    {
-        if (node == NULL)  
-        return 0;  
-        return 1+max(calculateHeight(node->left),calculateHeight(node->right));
-    }
-
-    int diameterOfBinaryTree(TreeNode* root)
-    {
-        if( root == NULL ) return 0;
-        int option1 = calculateHeight(root->left)+calculateHeight(root->right);
-        int option2 = diameterOfBinaryTree(root->left);
-        int option3 = diameterOfBinaryTree(root->right);
-        return max(option1,max(option2,option3));
-    }
-
-};
+int diameterOfBinaryTree(TreeNode *root)
+{
+    if (root == NULL)
+        return 0;
+    int option1 = calculateHeight(root->left) + calculateHeight(root->right);
+    int option2 = diameterOfBinaryTree(root->left);
+    int option3 = diameterOfBinaryTree(root->right);
+    return max(option1, max(option2, option3));
+}
 
 int main(void)
 {
-    Tree *bTree = new Tree();
-    bTree->addItem(3);
-    bTree->addItem(1);
-    bTree->addItem(2);
-    bTree->addItem(4);
-    bTree->addItem(5);
-    bTree->levelOrderTraversal();
-    cout<<"\n Diameter: "<<bTree->diameterOfBinaryTree()<<endl;;
+    TreeNode *bTree = new TreeNode(3);
+    addNode(1, bTree);
+    addNode(2, bTree);
+    addNode(4, bTree);
+    addNode(5, bTree);
+    cout << "\n Diameter: " << diameterOfBinaryTree(bTree) << endl;
 }
