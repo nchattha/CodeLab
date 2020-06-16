@@ -78,13 +78,13 @@ void swapData(int &lVal, int&rVal)
     lVal -= rVal;
 }
 
-bool helperBST(TreeNode* current, int lowerLimit = -1000000000, int upperLimit = 1000000000)
+bool helperBST(TreeNode* current, long long lowerLimit = -1000000000, long long upperLimit = 1000000000)
 {
     if( current == NULL )return true;
     bool left = helperBST(current->left, lowerLimit, current->val);
     bool right = helperBST(current->right, current->val, upperLimit);
-
-    if( left && right && current->val>lowerLimit && current->val < upperLimit ) return true;    
+    cout<<left<<" : "<<right<<" : "<< (current->val > lowerLimit)<<" : "<< (current->val < upperLimit)<<endl;
+    if( left && right && (current->val > lowerLimit) && (current->val < upperLimit) ) return true;    
     else return false;
 }
 
@@ -94,13 +94,13 @@ bool helperBST(TreeNode* current, int lowerLimit = -1000000000, int upperLimit =
 
 int main(void)
 {
-    TreeNode *bTree = new TreeNode(5);
-    addNode(3, bTree);
-    addNode(7, bTree);
-    addNode(1, bTree);
-    addNode(4, bTree);
-    addNode(6, bTree);
-    print2DUtil(bTree,COUNT);
+    TreeNode *bTree = new TreeNode(2147483647);
+    // addNode(3, bTree);
+    // addNode(7, bTree);
+    // addNode(1, bTree);
+    // addNode(4, bTree);
+    // addNode(6, bTree);
+    // print2DUtil(bTree,COUNT);
     cout <<"\n Valid BST: "<<isValidBST(bTree)<<endl;
    
     
